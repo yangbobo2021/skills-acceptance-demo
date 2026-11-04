@@ -69,7 +69,7 @@ https://github.com/yangbobo2021/sublang-skill/tree/v1.0.0
 ## 5. 克隆公开验收材料（PROMPT）
 
 ```text
-请把公开验收材料仓库 https://github.com/yangbobo2021/skills-acceptance-demo 克隆到用户主目录下一个全新的目录，固定标签 manual-v1.0.0，记录绝对路径与 Git SHA。不要覆盖已有目录。
+请把公开验收材料仓库 https://github.com/yangbobo2021/skills-acceptance-demo 克隆到用户主目录下一个全新的目录，固定标签 manual-v1.0.1，记录绝对路径与 Git SHA。不要覆盖已有目录。
 阅读 MANUAL-ACCEPTANCE.md 和 versions.json，确认四个入口是 extract-specs、decide、code、acceptance-orchestrate。现在只准备材料，不执行四个工作流；不要将四工作流加入 CI 或定时任务。
 ```
 
@@ -118,6 +118,7 @@ $sublang
 明确配置本轮的 Agent：Codex 路线统一使用 codex；Claude Code 路线统一使用 claude。能可靠取得当前宿主模型时使用该模型；取不到时 Codex 默认 gpt-6.1-sol，Claude 默认 claude-opus-5-5，不额外询问。第三方服务不支持这个模型时如实记录，不能偷偷替换或声称成功。
 通过现有 configure 接口在本轮隔离 SPEX_HOME 的 personal 范围设置 Captain 和全部已有 Player 的 adapter、model，处理与目标 adapter 不兼容的旧调参；不修改认证、不擅自扩大权限。各角色保留独立 Player ID；coder 与 reviewer 不能绑定到同一个 Player。保留角色职责，检查角色级模型覆盖没有盖过本轮指定模型。
 再次调用 settings，保存配置路径、每个 Agent/模型、readiness 和实际选用依据到 evidence。后续新发现但未显式配置的 Player 应继承本轮 Captain 的默认 Agent/模型；安装新包后仍要重新核对。不要运行四个业务工作流。
+另外保存 setup 返回的 runtime 目录，以及其中 node_modules/@sublang/spex/dist/cli.js 的真实绝对路径，作为本轮 SPEX CLI；先确认该文件存在并读取帮助。把 Node、SPEX CLI、project、spexHome 和 evidence 的路径写入 evidence/toolchain.json，不写凭据。
 ```
 
 **预期：** 新环境中 Agent/模型明确、运行依赖可用，且真实个人 SPEX 配置未改变；记录 A-01。没有凭据或模型不可调用时记 BLOCKED，不能靠换模型掩盖问题。
@@ -179,11 +180,14 @@ $sublang
 
 **预期：** 提取规格的前提明确；没有把第一个 Skill 的成果混入第二个 Skill 的抽取场景。
 
+**每次调用的交接约定：** 内层 Playbook 不会自动继承外层聊天。外层必须将 `run.json` 和 `toolchain.json` 中的真实绝对路径与当前任务限制写入本次 request-file。系统没有全局 Node 时，内层用提供的 Node 绝对路径；需要在本轮子进程 PATH 前置该 Node 所在目录时，只作用于该进程及其子进程，不改全局环境。
+
 ## 16. 手动调用 extract-specs（PROMPT）
 
 ```text
 $sublang
 在本轮隔离 spexHome 和 playbook-demo 中，使用 merico-ai/extract-specs@0.3.0 的 extract-specs 工作流执行以下真实请求。必须通过 Skill run 创建原会话，保留 sessionId、selected_workflow 和实际返回记录；不要由外层 Agent 手工完成任务来替代工作流。
+将本轮 toolchain.json 中 Node 与 SPEX CLI 的绝对路径、工作目录、证据目录和以下限制完整交接给内层；不假定其能看到本聊天或全局 node/npm。
 为当前 Node.js Hello World 提取中文现状 SPEC，只覆盖 REQUIREMENTS.md 的 HELLO-01 与 src/hello.mjs、test/hello.test.mjs 展示的行为。只设一个最小业务包；本验收手册中的未来 --upper/HELLO-02 不进入当前规格，不新增其他参数或部署需求，不研究 Node 内部实现。
 保留现有 LICENSE，不从测试身份推断版权；按已安装原版流程处理必要的 Git/许可种子、计划、独立审查、人工 Gate、样例校准、lint 与交接。允许仅在本地测试分支提交规格和必要环境文件，不修改产品源码或原测试，不推送、不建 PR，不修改工作流包。
 收到真实人工 Gate 时向我展示本轮材料并等待；不要自动代我批准，不复用旧运行的批准。结束时报告原会话真实终态、规格和 Gate 证据、提交、lint、未解决问题。
@@ -210,6 +214,7 @@ $sublang
 ```text
 $sublang
 沿用本轮隔离环境，在 playbook-demo 新建一条运行 sublang/playbooks@18.1.3 的 decide 原会话，保存 sessionId。仅设计 HELLO-02：恰好一个 --upper 参数时，stdout 必须是 UTF-8 字节 48 45 4c 4c 4f 0a，stderr 为空，退出码0；无参数 HELLO-01 不变，其他参数组合不新增约定。
+将本轮 Node、SPEX CLI、项目与证据绝对路径，以及以下权限和停止条件写入真实 request-file 交接给内层。
 按原版 decide 完成不同 Player 的独立提案、合成、设计决定、嵌套 review 和必要修订，更新 REQUIREMENTS.md 及已有 hello 业务规格，清理本范围内过时说明。本步不得实现 --upper，不修改产品源码或原测试。
 允许本地设计提交，不推送、不建 PR，不修改工作流。仅有正常人工问题时再向我展示并在原会话继续。
 最终报告原 decide 与原嵌套 review 的真实终态、设计提交、精确 evaluated revision、未解决 findings；不能另开一次 review 来冒充原流程完成。
@@ -222,6 +227,7 @@ $sublang
 ```text
 $sublang
 在同一本轮隔离环境中，新建 sublang/playbooks@18.1.3 的 code 原会话，只实现上一步已审定的 HELLO-02。保留 HELLO-01：默认仍输出 hello 加 LF，单独 --upper 输出 HELLO 加 LF。无第三方业务依赖，不扩展其他参数组合或功能。
+明确把本轮 Node 绝对路径、项目、已批准设计提交与证据目录传给内层，不能依赖外层聊天或系统全局 node。
 保留原集成测试，并补充至少一项实际子进程调用 --upper 的测试。必须二进制捕获 stdout/stderr，分别断言两种输入的精确 UTF-8 字节、stderr 空和退出码0，不用字符串 trim 或自动换行转换掩盖差异。
 完成原版 code 的独立 review、必要修订和本地提交，不推送、不建 PR，不修改工作流。最终给出原 code 和嵌套 review 终态、实现提交、精确复审版本、真实命令与退出码、未解决 findings，并保存 sessionId。
 ```
@@ -242,6 +248,7 @@ $sublang
 ```text
 $sublang
 在本轮隔离环境中，新建一条使用 yangbobo2021/app-delivery-acceptance@0.4.17 的 acceptance-orchestrate 原会话，保存 sessionId。只通过此业务总入口委托，不由外层 Agent 直接调用它的子流程或工具。
+将本轮 Node、项目、实现 SHA、证据目录的真实绝对路径完整交接给总入口，供它继续向子工作流传递；不依赖外层聊天或全局 node。
 读取本轮 REQUIREMENTS.md 与已审定 SPEC，创建新的验收身份；仅针对 HELLO-02 生成并采用场景，选择且只正式执行一个正常场景：真实启动 Node 执行 src/hello.mjs --upper，以二进制捕获验证 stdout 为 48 45 4c 4c 4f 0a、stderr 零字节、退出码0。
 授权生成和冻结本范围需求与场景候选、准备隔离执行目录、生成或修补本轮测试用例，完成用例评估、正式执行、独立结果复审及报告导出后停止。代码覆盖率明确关闭；依实际已安装合同使用 coverage.policy=off，不自行发明字段。其他生成场景保留为未执行，HELLO-01 不算本次选定场景的正式验收。
 固定本轮实现提交，不修改产品源码、原始需求或工作流，不降低断言，不推送、不建 PR。保留所有失败和正常恢复记录。
