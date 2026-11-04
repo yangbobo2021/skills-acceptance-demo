@@ -11,8 +11,8 @@
     },
     "sublang": {
       "repository": "https://github.com/yangbobo2021/sublang-skill",
-      "ref": "v1.0.3",
-      "commit": "74429b42f7e4f27dffb191129fc19e8e7a3a1121"
+      "ref": "v1.0.4",
+      "commit": "d4f88433d91c110a9d7c48ed25663c01ad9f509c"
     }
   },
   "registry": "https://spex.sublang.ai",
@@ -46,11 +46,27 @@
   "execution_policy": "The four Playbooks are manual only; do not execute them in CI.",
   "status": "materials_prepared_not_manual_acceptance_passed",
   "based_on_materials_ref": "manual-v1.0.1",
-  "materials_revision": "playbook-runtime-18.1.4-2026-11-05",
+  "materials_revision": "windows-package-install-read-grants-2026-11-05",
   "materials_publication": "main-no-new-tag",
   "acceptance_steps": 12,
   "environment_policy": "normal personal SPEX environment; no preconfiguration to bypass first-use defects",
   "runtime_dependencies": {
     "@sublang/playbook": "18.1.4"
+  },
+  "runtime_artifacts": {
+    "runtime/vendor/spex-cli.tgz": {
+      "sha256": "e291429ae43ca812594b8028d609341a4694c46dd463b3a40a49082f92b86851",
+      "repository": "https://github.com/sublang-ai/spex",
+      "commit": "420aba7b5ddadfbbc42ff0c6add7b4083cb29714",
+      "dirty": false,
+      "note": "Windows storage follows upstream DR-223; built from clean worktree"
+    },
+    "runtime/vendor/spex-core.tgz": {
+      "sha256": "aa23076b8fc3c085ad2be57ddd3aea5d807e0972b45ebfb5f62b255a61967014",
+      "repository": "https://github.com/sublang-ai/spex",
+      "commit": "5cd6f403a6a57367f0849edffaecde6224e075af",
+      "dirty": true,
+      "note": "Retained endpoint-enabled Core; imports the updated SPEX file/environment library"
+    }
   }
 }
