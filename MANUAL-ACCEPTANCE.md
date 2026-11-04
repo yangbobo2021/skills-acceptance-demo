@@ -126,6 +126,7 @@ Skill 先完成执行前准备：尚未初始化时自动采用当前宿主，�
 
 ```text
 使用 sublang 的 acceptance-orchestrate 工作流验收刚才完成的 --upper 变更。
+由 sublang 返回的 SubLang CLI 调用入口；不要切换到包导出的独立 Skill 或独立 Playbook CLI。
 只选并正式执行一个正常场景：真实运行命令，检查输出为 HELLO 加一个 LF、stderr 为空、退出码 0。
 关闭代码覆盖率，完成用例评估、执行、独立复审和报告，不改产品代码。
 ```
@@ -134,6 +135,8 @@ Skill 先完成执行前准备：尚未初始化时自动采用当前宿主，�
 结构校验失败、评估未接收或原任务终态不明，不能因命令成功就判通过。
 
 ## 执行与判定
+
+多轮复验可按 [精简复验](docs/LIGHTWEIGHT-ACCEPTANCE.md) 复用已核对产物；仍保留真实 Codex／Claude → Skill → SubLang CLI → 原工作流与内层 Agent。精简复验单独记账，不替代本文件的首次完整 12 步。
 
 - 技术核对和记录见 [执行者检查表](docs/EXECUTOR-CHECKLIST.md)，不拼进用户 Prompt。
 - 首次使用遵循正常个人环境，不提前建立隔离 SPEX_HOME 或配置 Captain/Player 来绕过初始化问题。

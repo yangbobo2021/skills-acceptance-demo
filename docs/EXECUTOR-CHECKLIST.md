@@ -82,6 +82,7 @@
 | code | 两种真实子进程输入的精确字节/退出码断言；原独立 review、修订和本地提交 |
 | acceptance-orchestrate | 固定实现 SHA；新 AT；一个正式场景；评估接收、执行收据、独立复审、报告 |
 
+- 保留真实宿主对 sublang Skill 的调用记录，以及该宿主随后执行 setup 返回的 SubLang CLI 的记录；不能由操作脚本代替外层宿主发起业务工作流。不得切换到 app-delivery-acceptance 独立 Skill、独立 Playbook CLI 或其配置 overlay。精简复验的范围与判定见 [LIGHTWEIGHT-ACCEPTANCE.md](LIGHTWEIGHT-ACCEPTANCE.md)。
 - 每次仅运行用户指定的入口，保存 selected_workflow、实际包版本、原 sessionId、终态和设计/实现/精确复审 SHA。
 - 每轮记录宿主沙箱与审批设置；内层 Agent 的数据库或 app-server 启动被拒绝时保留失败，不关闭宿主沙箱或提高权限冒充通过。
 - 发下一条继续请求前，等待上一条宿主调用和 CLI 完整退出；不要对同一对话/临时 Core 并发提交人工回复。
