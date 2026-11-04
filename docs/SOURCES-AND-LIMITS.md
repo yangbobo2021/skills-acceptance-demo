@@ -3,7 +3,7 @@
 ## 材料与被测版本
 
 - 四个入口为 extract-specs、decide、code、acceptance-orchestrate，版本见 versions.json。
-- SPEC Skill 为 v1.0.0，SubLang Skill 为统一构建 CLI、Core、内置内容并检查实际引擎路径的 v1.0.5；固定提交见 versions.json。
+- SPEC Skill 为 v1.0.0，SubLang Skill 为统一构建且修复沙箱文件监听崩溃的 v1.0.6；固定提交见 versions.json。
 - 历史来源记录曾打开 SMM 对话 12543，位置 446、5323、6347；这些是材料编写依据，不是本轮通过证据。
 - 历史 decide 原终态读取超时、验收 case-evaluation 结构异常不能被后续文件存在或测试成功覆盖。
 - 2026-11-04 曾在隔离环境查到两个市场包及固定版本；这仅证明当时搜索可用，不能替代新轮次的搜索、安装和实际执行。
@@ -44,3 +44,6 @@ v1.0.5 将 CLI、Core、内置内容从同一上游 420aba7b 加随发布公开�
 Playbook/SLC 内部 npm @sublang/spex@3.0.0 属于它们声明的 ^3.0.0 API 依赖，不强制覆盖成 Core 使用的 5.0.0。外部工作流内容包的声明版本不等于它实际导入的执行引擎版本，必须分别取证。已有用户内容锁定版本不自动改写；本轮全新环境期望内置内容为 18.1.4。
 
 自动回归覆盖独立运行时来源、内置内容、合成 Playbook 安装、旧缓存引擎链接修复和真实依赖目录保留/运行前拒绝，不执行四个手动验收工作流，也不替代明镜机器上的复测。
+
+
+v1.0.6 来自实际 Codex workspace-write 验收发现的缺陷：preflight 启动 Core 时 fs.watch 异步 EMFILE 导致未处理异常。修复为原生监听同步/异步失败时自动目录轮询，保留配置/会话变更观察，不改权限、不提高 ulimit。macOS 18 项回归及原 Codex 沙箱定点回归通过；Windows 同组测试加入 CI，结果单独取证。本修复不等于 12 步或四工作流全部通过。
