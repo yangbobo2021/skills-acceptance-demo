@@ -6,7 +6,7 @@
 以下 12 步适用于 macOS、Windows、Codex 和 Claude Code，Prompt 不区分平台或宿主，Skill 应自行适配。
 **每次只执行一步，报告后停止，等操作者继续；四个工作流分别由人触发，不进入 CI 或定时任务。**
 
-被测版本：SPEC Skill 固定 v1.0.0；SubLang Skill 固定修复首次 Agent 初始化的 v1.0.1。
+被测版本：SPEC Skill 固定 v1.0.0；SubLang Skill 固定修复首次 Agent 初始化的 v1.0.2。
 本手册随 main 分支发布；本轮以实际克隆的 Git SHA 固定材料版本。
 旧标签 manual-v1.0.1 仍保留旧流程，不要使用它执行本手册。
 
@@ -23,9 +23,9 @@ https://github.com/yangbobo2021/spex-spec-workflow/tree/v1.0.0
 ## 2. 安装 SubLang Skill
 
 ```text
-帮我安装这个 Skill，使用 v1.0.1，并按它的说明完成必要准备：
-https://github.com/yangbobo2021/sublang-skill/tree/v1.0.1
-这是首次 Agent 初始化修复版；后续首次使用应自动采用当前宿主 Agent 和模型，此后保留配置。先不要运行业务工作流。
+帮我安装这个 Skill，使用 v1.0.2，并按它的说明完成必要准备：
+https://github.com/yangbobo2021/sublang-skill/tree/v1.0.2
+先不要运行业务工作流。
 ```
 
 预期：完整安装，调用名为 sublang，运行时准备成功，宿主可发现。
@@ -92,10 +92,11 @@ https://github.com/yangbobo2021/skills-acceptance-demo
 
 ```text
 使用 sublang 的 extract-specs 工作流，为这个 Hello 项目提取中文现状规格。
-只描述已有行为，不改源码和测试。使用首次保存的 Agent 和模型配置；如果配置不符，先报告，不切换到其他 Agent。需要我确认时先停下来。
+只描述已有行为，不改源码和测试。需要我确认时先停下来。
 ```
 
 预期：只提取已有 HELLO-01，不把后续 --upper 需求当作现状；完成原工作流的独立审查和 lint。
+Skill 先完成执行前准备：尚未初始化时自动采用当前宿主，已有配置时沿用；不能把缺少初始化记录当作配置冲突而要求用户再次选择 Agent/模型。此准备不运行业务工作流。
 工作流要求人工确认时，展示本轮实际材料，操作者阅读后自然语言回复；Skill 应继续原任务，不要求用户抄内部会话 ID。
 等待确认记 WAITING，不能记已完成。
 
@@ -134,7 +135,7 @@ https://github.com/yangbobo2021/skills-acceptance-demo
 - 技术核对和记录见 [执行者检查表](docs/EXECUTOR-CHECKLIST.md)，不拼进用户 Prompt。
 - 首次使用遵循正常个人环境，不提前建立隔离 SPEX_HOME 或配置 Captain/Player 来绕过初始化问题。
 - 期望首次采用当前宿主 Agent/模型，无法取得模型时采用约定默认值，此后固定；实际配置与执行必须核对，不能由外层宿主推断。
-- SubLang v1.0.1 必须自行完成首次初始化；v1.0.0 的失败记录保留，不用新结果改写旧版本结论。不能预先手工配置后声称开箱可用。
+- SubLang v1.0.2 必须自行完成首次初始化；v1.0.0 的失败记录保留，不用新结果改写旧版本结论。不能预先手工配置后声称开箱可用。
 - 初次使用选错 Agent/模型或依赖手工预配置时记录缺陷，停止主路线；后续项写 NOT_RUN。显式重新配置与自动首次初始化分别记录。升级时保留历史会话，新配置只用于新会话，不把旧会话当成已切换。
 - 正常业务执行才需要的人工问题按实际内容回答，不提前批量批准；不热改被测版本让验收变绿。
 - 只在示例项目内做必要本地提交，不推送、不建 PR、不修改工作流包。
