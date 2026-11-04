@@ -3,7 +3,7 @@
 ## 材料与被测版本
 
 - 四个入口为 extract-specs、decide、code、acceptance-orchestrate，版本见 versions.json。
-- SPEC Skill 为 v1.0.0，SubLang Skill 为修复首次调用顺序的 v1.0.2；固定提交见 versions.json。
+- SPEC Skill 为 v1.0.0，SubLang Skill 为更新 Playbook 运行时的 v1.0.3；固定提交见 versions.json。
 - 历史来源记录曾打开 SMM 对话 12543，位置 446、5323、6347；这些是材料编写依据，不是本轮通过证据。
 - 历史 decide 原终态读取超时、验收 case-evaluation 结构异常不能被后续文件存在或测试成功覆盖。
 - 2026-11-04 曾在隔离环境查到两个市场包及固定版本；这仅证明当时搜索可用，不能替代新轮次的搜索、安装和实际执行。
@@ -20,6 +20,7 @@
 
 SubLang v1.0.0 未实现“首次采用宿主 Agent/模型，取不到则使用约定默认值，随后固定、只由用户修改”的新规则；旧版本失败记录保留。
 v1.0.1 增加了运行入口初始化，但真实调用在先检查 settings 时误把记录缺失当成配置冲突而停止。v1.0.2 增加 preflight，明确先准备再检查；未初始化时的 settings 不启动 Core、不生成凭据优先的默认配置。宿主显式传递、一次初始化、后续保持、新 Player 继承及用户主动重新配置继续保留。默认模型分别为 Codex gpt-6.1-sol / Claude claude-opus-5-5。
+v1.0.3 将 npm 运行时 @sublang/playbook 升级为 18.1.4；内置 SPEX 规格包 sublang/playbooks 仍为 18.1.3，两者不是同一个包。
 初始化配置和真实 Core 的确定性回归不调用模型，不等于四工作流手动验收通过。旧会话保留原 Agent 快照；新版配置需通过新会话验证。
 初次使用必须如实核对默认行为，不预先配置正确答案。
 错误默认值或需要人工预配记 FAIL；认证/模型不可用记 BLOCKED，停止主路线；用户主动重新配置单独记录，不覆盖首次结果。

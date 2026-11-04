@@ -11,8 +11,8 @@
     },
     "sublang": {
       "repository": "https://github.com/yangbobo2021/sublang-skill",
-      "ref": "v1.0.2",
-      "commit": "86c68caa02e1a9a34684e3bcb5402622ad5d2ec6"
+      "ref": "v1.0.3",
+      "commit": "74429b42f7e4f27dffb191129fc19e8e7a3a1121"
     }
   },
   "registry": "https://spex.sublang.ai",
@@ -46,8 +46,11 @@
   "execution_policy": "The four Playbooks are manual only; do not execute them in CI.",
   "status": "materials_prepared_not_manual_acceptance_passed",
   "based_on_materials_ref": "manual-v1.0.1",
-  "materials_revision": "workflow-preflight-fix-2026-11-04",
+  "materials_revision": "playbook-runtime-18.1.4-2026-11-05",
   "materials_publication": "main-no-new-tag",
   "acceptance_steps": 12,
-  "environment_policy": "normal personal SPEX environment; no preconfiguration to bypass first-use defects"
+  "environment_policy": "normal personal SPEX environment; no preconfiguration to bypass first-use defects",
+  "runtime_dependencies": {
+    "@sublang/playbook": "18.1.4"
+  }
 }

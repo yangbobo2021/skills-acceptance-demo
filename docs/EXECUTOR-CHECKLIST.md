@@ -10,7 +10,7 @@
 - 正常个人 SPEX 环境首次初始化为主路线；已有 SPEX_HOME 自定义值需记录，不得拿隔离覆盖证明默认路径首次使用。
 - 完整 Git 克隆，保留版本记录，已有目标不覆盖、不创建备份冒充新安装。
 - spex-spec-workflow v1.0.0 SHA：d5c8afa040d0c002ee5507d190fb37cb0e05d4ed。
-- sublang 使用 v1.0.2；SHA 以 versions.json 中的固定提交为准，并核对远端标签。
+- sublang 使用 v1.0.3；SHA 以 versions.json 中的固定提交为准，并核对远端标签。
 - 保存实际路径、origin、SHA、tag、工作区及宿主发现结果；SPEC Skill 应含 agents/、references/。
 - SubLang 应含 scripts/、runtime/package.json、package-lock.json、release.json、node-checksums.txt 和 vendor 中两个 tgz。
 - 由已安装 Skill 准备运行时：macOS/Linux 用 setup.sh，原生 Windows 用 setup.ps1，不要求 Bash。
@@ -48,7 +48,7 @@
 - 目标 adapter 等于当前宿主；模型来自可靠当前宿主记录，无法取得时 Codex 默认 gpt-6.1-sol、Claude 默认 claude-opus-5-5。
 - 核对 Captain、全部 Player 和角色覆盖；保持不同 Player ID，coder/reviewer 不合并。
 - 错误默认值或必须手工预配置为 FAIL；认证或目标模型不可用为 BLOCKED；不降级模型或切换提供商。
-- v1.0.2 应在正常首次请求前持久化初始化记录并通过 Core 更新个人配置；记录配置路径、初始化状态、模型来源及实际 Captain/Player/角色设置。不得以显式补配替代自动初始化。
+- v1.0.3 应在正常首次请求前持久化初始化记录并通过 Core 更新个人配置；记录配置路径、初始化状态、模型来源及实际 Captain/Player/角色设置。不得以显式补配替代自动初始化。
 - A-01 不通过即停止主路线，后续 NOT_RUN；补充配置验证需另行授权，保留原失败。
 - readiness 仅证明静态就绪，不能证明模型实际调用成功；真实调用证据在后续工作流中补齐。
 - 后续安装/继续使用时只读比较既有配置是否固定，新 Player 是否继承当前 Captain；不改真实凭据来制造测试。
@@ -61,6 +61,7 @@
 - 使用 package-search 的真实市场结果，不用 catalog 的本地过滤代替。
 - merico-ai/extract-specs@0.3.0；yangbobo2021/app-delivery-acceptance@0.4.17。
 - 安装后核对 packages 版本/installed、catalog、inspect 和有效 Agent/模型，新 Player 应继承已固定选择，不由执行者补配掩盖缺陷。
+- npm 运行时 @sublang/playbook 为 18.1.4，Core 应解析到同一安装版本；这与 SPEX 市场规格包的版本分别核对。
 - decide/code 来自内置 sublang/playbooks@18.1.3；只检查，不另增用户步骤，不提前执行。
 - 网络、认证失败和无匹配分别记录，版本偏差不自动升级。
 - 只在独立示例中做必要环境清单本地提交，冻结工作流前产品基线；不提交凭据、个人状态、缓存或证据。
