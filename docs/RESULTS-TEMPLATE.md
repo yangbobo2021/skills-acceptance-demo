@@ -11,6 +11,7 @@
 | 材料修订、ref/SHA、被测项目、空项目和证据路径 | |
 | 正常个人 SPEX_HOME、是否已有状态/自定义覆盖 | |
 | setup 返回 Node、CLI、runtime、protocolVersion、SPEX CLI 版本 | |
+| runtime-check：Core 构建 commit/tree/patch/lock、内置内容版本、每个 registry 的实际引擎路径/版本、aligned | |
 | 首次请求前是否预配置；若有，首次场景不可判通过 | |
 | 实际 Captain、全部 Player、角色覆盖、readiness、配置路径 | |
 | 其他 OS/宿主组合 | NOT_RUN |
@@ -34,7 +35,7 @@
 ## 首次使用缺口与停止点
 
 - 首次搜索真实输入/输出：待填。
-- 默认配置是否满足要求：待填；SubLang v1.0.4 应自行完成首次初始化，不能靠预配置变绿。
+- 默认配置是否满足要求：待填；SubLang v1.0.5 应自行完成首次初始化，不能靠预配置变绿。
 - A-01 的选择、继续使用稳定性、新 Player 继承、凭据变化后不重设分别记录；未实测子项写 NOT_RUN。
 - 静态 readiness 与模型真实调用结果分开：待填。
 - 失败时停止主路线，后续 NOT_RUN；另行授权的显式配置补充验证独立列出，不覆盖原失败。

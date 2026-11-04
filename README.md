@@ -11,16 +11,16 @@ Prompt 对 macOS/Windows、Codex/Claude Code 通用；系统适配与内部配�
 | 被测项 | 固定版本 |
 | --- | --- |
 | spex-spec-workflow | v1.0.0 |
-| sublang | v1.0.4 |
+| sublang | v1.0.5 |
 | @sublang/playbook | 18.1.4，npm 运行时 |
 | merico-ai/extract-specs | 0.3.0，先搜索后安装 |
-| sublang/playbooks | 18.1.3，内置 decide/code |
+| sublang/playbooks | 18.1.4，内置 decide/code |
 | yangbobo2021/app-delivery-acceptance | 0.4.17，先搜索后安装 |
 
 最小案例：现有 hello 加 LF → 提取现状规格 → 设计并实现单独 --upper 输出 HELLO 加 LF → 正式验收一个新增正常场景。
 
 首次使用采用正常个人 SPEX 环境，不先用隔离环境或手工配置补齐产品缺口。
-SubLang v1.0.4 修复首次按宿主选择并固定 Agent/模型，以及检查先于初始化而误停的问题；首次使用、后续保持和新 Player 继承均需取证。v1.0.0 的失败记录保留，不能用验收者预配置替代初始化。
+SubLang v1.0.5 统一构建 CLI、Core 和内置内容，并检查实际引擎路径；保留首次按宿主选择并固定 Agent/模型的修复。首次使用、后续保持和新 Player 继承均需取证。v1.0.0 的失败记录保留，不能用验收者预配置替代初始化。
 
 本修订随 main 分支发布，尚未单独打新标签；克隆后记录实际 Git SHA 作为本轮固定材料版本。
 旧 manual-v1.0.1 不包含新流程，不要使用旧标签执行新版验收。
