@@ -1,6 +1,6 @@
 {
   "prepared_on": "2026-11-04",
-  "materials_ref": "manual-v1.0.1",
+  "materials_ref": "main",
   "planned_manual_date": "2026-11-05",
   "timezone": "Asia/Shanghai",
   "skills": {
@@ -17,10 +17,37 @@
   },
   "registry": "https://spex.sublang.ai",
   "packages": [
-    {"name": "sublang/playbooks", "version": "18.1.3", "workflows": ["decide", "code"], "installation": "bundled"},
-    {"name": "merico-ai/extract-specs", "version": "0.3.0", "workflows": ["extract-specs"], "installation": "search-then-install"},
-    {"name": "yangbobo2021/app-delivery-acceptance", "version": "0.4.17", "workflows": ["acceptance-orchestrate"], "installation": "search-then-install"}
+    {
+      "name": "sublang/playbooks",
+      "version": "18.1.3",
+      "workflows": [
+        "decide",
+        "code"
+      ],
+      "installation": "bundled"
+    },
+    {
+      "name": "merico-ai/extract-specs",
+      "version": "0.3.0",
+      "workflows": [
+        "extract-specs"
+      ],
+      "installation": "search-then-install"
+    },
+    {
+      "name": "yangbobo2021/app-delivery-acceptance",
+      "version": "0.4.17",
+      "workflows": [
+        "acceptance-orchestrate"
+      ],
+      "installation": "search-then-install"
+    }
   ],
   "execution_policy": "The four Playbooks are manual only; do not execute them in CI.",
-  "status": "materials_prepared_not_manual_acceptance_passed"
+  "status": "materials_prepared_not_manual_acceptance_passed",
+  "based_on_materials_ref": "manual-v1.0.1",
+  "materials_revision": "user-journey-2026-11-04",
+  "materials_publication": "main-no-new-tag",
+  "acceptance_steps": 12,
+  "environment_policy": "normal personal SPEX environment; no preconfiguration to bypass first-use defects"
 }

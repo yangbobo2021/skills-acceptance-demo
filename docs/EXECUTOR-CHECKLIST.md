@@ -1,0 +1,86 @@
+# 验收执行者检查表
+
+本文件给验收 Agent/维护者使用，不是用户必须输入的 Prompt。
+每轮严格跟随手册当前一步，检查不得提前触发后续安装、配置或工作流。
+
+## 步骤 1—2：安装
+
+- 起点只读记录 OS/架构、宿主版本、登录、Git、可靠取得的模型，以及同名个人/共享/项目/插件安装；不输出凭据。
+- 已有安装或个人 SPEX 数据时不擅自删除；使用专用系统用户/机器，或记录从零场景未覆盖。
+- 正常个人 SPEX 环境首次初始化为主路线；已有 SPEX_HOME 自定义值需记录，不得拿隔离覆盖证明默认路径首次使用。
+- 完整 Git 克隆，保留版本记录，已有目标不覆盖、不创建备份冒充新安装。
+- spex-spec-workflow v1.0.0 SHA：d5c8afa040d0c002ee5507d190fb37cb0e05d4ed。
+- sublang v1.0.0 SHA：d9d39852a9d88f982aec34302895873cdc27cd1e。
+- 保存实际路径、origin、SHA、tag、工作区及宿主发现结果；SPEC Skill 应含 agents/、references/。
+- SubLang 应含 scripts/、runtime/package.json、package-lock.json、release.json、node-checksums.txt 和 vendor 中两个 tgz。
+- 由已安装 Skill 准备运行时：macOS/Linux 用 setup.sh，原生 Windows 用 setup.ps1，不要求 Bash。
+- 保存 setup 返回的 node、cli、runtime、protocolVersion；用返回路径检查 help 的九个要求入口。
+- 不全局安装 CLI，不装 SPEX App，不修改宿主认证或权限。
+
+## 步骤 3：SPEC
+
+- 新空项目与后续被测项目分离；使用当前宿主所需 Agent 指令，不要求无关宿主配置。
+- 保存实际 CLI 来源/版本；scaffold/lint 显式指定空项目，不能落在外层 Git 根。
+- 中文、meta.md、map.md、最小 hello 业务包和 Agent 指令完整。
+- 另审查业务语义：无参数 stdout=68656c6c6f0a、stderr 零字节、退出码 0、无第三方依赖，不扩展其他参数或功能。
+- 不实现产品；按 Skill 规则清理能够确认来源的默认项目许可证副作用，保留上游 SPDX 行和未知许可/版权占位值，不把它们当阻断。
+
+## 步骤 4：被测项目和台账
+
+- 从包含本修订的 main 分支获取材料并记录实际 Git SHA 固定本轮版本；旧 manual-v1.0.1 仍是旧流程，版本不符不能冒充新版。
+- 材料和独立示例均位于新目录，不污染真实开发源码；fixtures/hello-world 复制成独立 Git 项目后再登记，不把整份验收手册纳入产品规格抽取范围。
+- 可用 prepare-fixtures.mjs 完成复制与本地 Git 基线；它不配置 SPEX、不执行工作流，生成额外空目录可直接作为步骤 3 的同类准备工具，但不能借此重跑步骤 3。
+- 合成 Git 身份仅限示例仓库本地，不当作版权主体、不修改全局身份。
+- 原测试应 1 项通过；assert-hello.mjs baseline 核对精确字节，implemented 初始应失败。
+- 保存源码、原测试、需求、LICENSE 哈希，HEAD、fixture-baseline 标签和 Git 状态；独立项目须无 specs/，不实现 --upper。
+- evidence/run.json 记录实际材料、项目、空项目、Node 和默认 SPEX_HOME；evidence/toolchain.json 记录 node、cli、runtime、spexCli、project、specProject、evidence、spexHome，不写凭据。
+- spexCli 必须是 runtime/node_modules/@sublang/spex/dist/cli.js 的实际路径，确认存在并读 help。
+- 运行时、项目、权限范围、用户请求和停止点由 Skill 传给内层，不让用户复制路径、内部 ID 或配置接口字段。
+
+## 首次实际请求：步骤 5
+
+- 首次请求前不调用 configure 或直接写配置修正默认值，不提前准备个人 SPEX 数据。
+- 由 Skill 自行完成必要项目登记；保存首次市场搜索的真实请求与结果。
+- 请求后通过 settings 只读保存个人/项目有效配置、配置路径、角色覆盖和 readiness。
+- 目标 adapter 等于当前宿主；模型来自可靠当前宿主记录，无法取得时 Codex 默认 gpt-6.1-sol、Claude 默认 claude-opus-5-5。
+- 核对 Captain、全部 Player 和角色覆盖；保持不同 Player ID，coder/reviewer 不合并。
+- 错误默认值或必须手工预配置为 FAIL；认证或目标模型不可用为 BLOCKED；不降级模型或切换提供商。
+- v1.0.0 尚未实现首次跟随宿主并固定，因此不得把显式配置成功记录为自动初始化通过。
+- A-01 不通过即停止主路线，后续 NOT_RUN；补充配置验证需另行授权，保留原失败。
+- readiness 仅证明静态就绪，不能证明模型实际调用成功；真实调用证据在后续工作流中补齐。
+- 后续安装/继续使用时只读比较配置是否固定，新 Player 是否继承默认；不改真实凭据来制造测试。
+- “凭据变化后不重设”等未实测子项写 NOT_RUN，不能用普通重启代替。
+
+## 步骤 5—8：搜索、安装
+
+- 每包分搜索和安装两步，搜索后停下；未获得下一步安装请求，不新增包。
+- 使用 package-search 的真实市场结果，不用 catalog 的本地过滤代替。
+- merico-ai/extract-specs@0.3.0；yangbobo2021/app-delivery-acceptance@0.4.17。
+- 安装后核对 packages 版本/installed、catalog、inspect 和有效 Agent/模型，新 Player 应继承已固定选择，不由执行者补配掩盖缺陷。
+- decide/code 来自内置 sublang/playbooks@18.1.3；只检查，不另增用户步骤，不提前执行。
+- 网络、认证失败和无匹配分别记录，版本偏差不自动升级。
+- 只在独立示例中做必要环境清单本地提交，冻结工作流前产品基线；不提交凭据、个人状态、缓存或证据。
+
+## 步骤 9—12：四个真实工作流
+
+| 入口 | 必要证据 |
+| --- | --- |
+| extract-specs | 仅 HELLO-01；原流程审查、实际 Gate、lint；源码/原测试哈希不变 |
+| decide | HELLO-02 进入需求/规格；原提案与嵌套 review 完成；代码尚未实现 |
+| code | 两种真实子进程输入的精确字节/退出码断言；原独立 review、修订和本地提交 |
+| acceptance-orchestrate | 固定实现 SHA；新 AT；一个正式场景；评估接收、执行收据、独立复审、报告 |
+
+- 每次仅运行用户指定的入口，保存 selected_workflow、实际包版本、原 sessionId、终态和设计/实现/精确复审 SHA。
+- Gate 展示本轮材料，由用户阅读后确认，继续原会话；WAITING 不是 PASS。
+- code 后独立执行 implemented 字节检查和现有测试，保存证据；失败不由外层代修。
+- acceptance-orchestrate 只从总入口委托；coverage.policy=off，其他候选场景不算正式执行。
+- case-evaluation 未接收或有结构错误，不能因 CLI 成功就通过。
+- exit 0、ok:true、一轮结束不等于整条工作流成功；原终态不明就只读续查，不能另开 review 冒充。
+- 不热改安装包、Skill、会话或锁，不删除失败历史，不把四工作流放进 CI/定时任务。
+
+## 记录和清理
+
+- 使用 RESULTS-TEMPLATE.md；保存真实命令、输出、退出码和必要截图，结论只覆盖当前实际组合。
+- 材料准备与确定性测试不是模型/工作流验收；显式补充配置不覆盖首次使用失败。
+- 默认保留；获清理授权后按本轮创建清单和进程核对再删除，不清理无关目录或远端资源。
+- 清理本轮安装/缓存/项目/个人状态时保留登录、全局配置、开发源码、其他技能和聊天历史。

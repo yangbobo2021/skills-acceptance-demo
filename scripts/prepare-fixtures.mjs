@@ -5,6 +5,7 @@ import {dirname, isAbsolute, join, relative, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {parseArgs} from 'node:util';
 import {createHash} from 'node:crypto';
+import {homedir} from 'node:os';
 
 const materials = dirname(dirname(fileURLToPath(import.meta.url)));
 const {values} = parseArgs({options: {root: {type: 'string'}, host: {type: 'string'}}});
@@ -38,10 +39,11 @@ for (const file of ['src/hello.mjs','test/hello.test.mjs','REQUIREMENTS.md','LIC
 }
 const result = {
   root,host:values.host,materials,materialsCommit,project,specProject,evidence,
-  spexHome:join(root,'spex-home'),node:process.execPath,nodeVersion:process.version,
+  spexHome:resolve(process.env.SPEX_HOME || join(homedir(),'.spex')),
+  spexHomePolicy:'host-default-no-test-override',node:process.execPath,nodeVersion:process.version,
   platform:process.platform,arch:process.arch,gitVersion,baselineCommit:git(['rev-parse','HEAD'],project),
   baselineHashes:hashes,versions:JSON.parse(readFileSync(join(materials,'versions.json'),'utf8')),
-  note:'Preparation only. No Skill or Playbook has been executed by this script.'
+  note:'Preparation only. No Skill or Playbook executed, no SPEX home created or configured.'
 };
 writeFileSync(join(evidence,'run.json'),JSON.stringify(result,null,2)+'\n',{flag:'wx'});
 writeFileSync(join(evidence,'RESULTS.md'),readFileSync(join(materials,'docs/RESULTS-TEMPLATE.md')),{flag:'wx'});

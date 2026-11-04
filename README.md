@@ -1,24 +1,30 @@
 # 两个 Skill 的手动交付验收
 
-从“已安装并登录 Codex／Claude Code，但未安装目标 Skill”开始，经 GitHub 安装两个 Skill，再验证 SPEC 初始化和四个 Playbook。
+模拟用户已经登录宿主，从 GitHub 安装 Skill，到项目中实际使用四个工作流。
 
 **操作文档：[MANUAL-ACCEPTANCE.md](MANUAL-ACCEPTANCE.md)**
 
-目标操作日期：2026-11-05，Asia/Shanghai；材料准备于 2026-11-04。
+12 个步骤：分别安装两个 Skill → 空项目初始化 SPEC → 克隆被测项目 → 分别搜索、安装两个外部 Playbook → 逐个执行 extract-specs、decide、code、acceptance-orchestrate。
+Prompt 对 macOS/Windows、Codex/Claude Code 通用；系统适配与内部配置由 Skill 处理。
+技术核对另见 [执行者检查表](docs/EXECUTOR-CHECKLIST.md)，不要求用户输入内部路径、配置或会话 ID。
 
-| 被测项 | 固定来源 |
+| 被测项 | 固定版本 |
 | --- | --- |
-| SPEC Skill | [spex-spec-workflow v1.0.0](https://github.com/yangbobo2021/spex-spec-workflow/tree/v1.0.0) |
-| 工作流 Skill | [sublang-skill v1.0.0](https://github.com/yangbobo2021/sublang-skill/tree/v1.0.0) |
-| 提取规格 | `merico-ai/extract-specs@0.3.0`，先搜索后安装 |
-| 设计决策 | `sublang/playbooks@18.1.3` 的 `decide` |
-| 实现 | `sublang/playbooks@18.1.3` 的 `code` |
-| 交付验收 | `yangbobo2021/app-delivery-acceptance@0.4.17`，先搜索后安装，入口 `acceptance-orchestrate` |
+| spex-spec-workflow | v1.0.0 |
+| sublang | v1.0.0 |
+| merico-ai/extract-specs | 0.3.0，先搜索后安装 |
+| sublang/playbooks | 18.1.3，内置 decide/code |
+| yangbobo2021/app-delivery-acceptance | 0.4.17，先搜索后安装 |
 
-最小案例：当前程序输出 `hello\n`；先提取现状规格，再设计并实现单独的 `--upper` 参数，输出 `HELLO\n`，最后只验收该新增正常场景。
+最小案例：现有 hello 加 LF → 提取现状规格 → 设计并实现单独 --upper 输出 HELLO 加 LF → 正式验收一个新增正常场景。
 
-`scripts/prepare-fixtures.mjs` 只生成独立目录和基线提交；`scripts/assert-hello.mjs` 只做真实 CLI 字节检查。两者均不执行 Playbook，不替代人工验收。
+首次使用采用正常个人 SPEX 环境，不先用隔离环境或手工配置补齐产品缺口。
+v1.0.0 尚未实现首次跟随宿主并固定 Agent/模型；该项应暴露并记录，不能用验收 Prompt 代为实现。
 
-**四工作流不得放入 CI，也不得由本材料自动运行。** 本仓库没有 CI 工作流。
+本修订随 main 分支发布，尚未单独打新标签；克隆后记录实际 Git SHA 作为本轮固定材料版本。
+旧 manual-v1.0.1 不包含新流程，不要使用旧标签执行新版验收。
+计划操作日期：2026-11-05（Asia/Shanghai）。
 
-历史选择依据与已知限制见 [docs/SOURCES-AND-LIMITS.md](docs/SOURCES-AND-LIMITS.md)。版本固定见 [versions.json](versions.json)。
+准备脚本只复制示例和生成本地 Git 基线；字节检查脚本只核对真实 CLI 输出。
+**四个工作流只能由人分别触发，不进入 CI 或定时任务。**
+来源和边界见 [SOURCES-AND-LIMITS.md](docs/SOURCES-AND-LIMITS.md)，版本清单见 [versions.json](versions.json)。
