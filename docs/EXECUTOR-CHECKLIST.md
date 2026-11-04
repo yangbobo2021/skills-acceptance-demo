@@ -92,6 +92,7 @@
 - 将初次失败、原流程恢复后的通过、操作者执行错误和提供商阻塞分别记录；新版本或恢复结果不覆盖原始失败，也不把恢复后结果称为首次无错误通过。
 - code 后独立执行 implemented 字节检查和现有测试，保存证据；失败不由外层代修。
 - acceptance-orchestrate 只从总入口委托；coverage.policy=off，其他候选场景不算正式执行。
+- 中断恢复时分别核对 SPEX 会话身份和业务编排 task_id，不能把继续同一 SPEX 会话等同于继续同一业务任务。acceptance-orchestrate 的公开合同要求显式 JSON 续接时，在 CLI continue 的请求文件中保留完整 `/acceptance-orchestrate {…}` 委托、原 task_id 和新的 request_id；总入口自行检查持久状态与未决效果。自然语言中提及旧 ID 不代替合同字段，不让调度角色递归调用自身，不重建 AT 或重放已完成子调用。误生成的空记录和原失败均保留并分别记账。
 - case-evaluation 未接收或有结构错误，不能因 CLI 成功就通过。
 - exit 0、ok:true、一轮结束不等于整条工作流成功；原终态不明就只读续查，不能另开 review 冒充。
 - 不热改安装包、Skill、会话或锁，不删除失败历史，不把四工作流放进 CI/定时任务。
