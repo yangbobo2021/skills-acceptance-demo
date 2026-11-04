@@ -1,0 +1,9 @@
+{
+  "name": "skills-acceptance-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Manual Skill acceptance materials; no automated Playbook execution",
+  "scripts": {"test": "node --test test/materials.test.mjs"},
+  "engines": {"node": ">=22"}
+}
