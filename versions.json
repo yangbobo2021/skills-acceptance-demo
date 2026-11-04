@@ -11,8 +11,8 @@
     },
     "sublang": {
       "repository": "https://github.com/yangbobo2021/sublang-skill",
-      "ref": "v1.0.9",
-      "commit": "a8e0423efbd10e3a8642b5c2d346bb35b76341b2"
+      "ref": "v1.0.10",
+      "commit": "7e97a30c1ef9bb63a7927a03236f23c99b8bf908"
     }
   },
   "registry": "https://spex.sublang.ai",
@@ -46,7 +46,7 @@
   "execution_policy": "The four Playbooks are manual only; do not execute them in CI.",
   "status": "materials_prepared_not_manual_acceptance_passed",
   "based_on_materials_ref": "manual-v1.0.1",
-  "materials_revision": "concurrent-core-lifetime-and-spec-constraints-2026-11-05",
+  "materials_revision": "windows-contended-lease-and-spec-constraints-2026-11-05",
   "materials_publication": "main-no-new-tag",
   "acceptance_steps": 12,
   "environment_policy": "normal personal SPEX environment; no preconfiguration to bypass first-use defects",
@@ -55,21 +55,21 @@
   },
   "runtime_artifacts": {
     "runtime/vendor/spex-cli.tgz": {
-      "sha256": "9016242f806b8439c2006f93ba7ba3c55682f570c49333e3e5558cf8b12260e5",
+      "sha256": "4dbfe607dce2bc64334dda48b3cdeb8905897e8906e61b7cef82eb0e6828c96b",
       "repository": "https://github.com/sublang-ai/spex",
       "commit": "420aba7b5ddadfbbc42ff0c6add7b4083cb29714",
       "patch": "vendor/spex-source.patch",
-      "patchSha256": "5f9640097520b4f0b93c3ea348fe7c2a0034ef808b1b9a86bc077d25938b291d",
-      "tree": "d3f42f5f78eb6dd169ae03587df3a36efbb92ffb",
+      "patchSha256": "54a6be8c22ab0977fa2695250d8592ded278cc78980ca7a2844da402782c4bc3",
+      "tree": "8bf9b2b06a045f81a921a0e98f986df5c50aef4c",
       "lockSha256": "4fcf654ce71648c8460f344ba7dd9a64fed03dc41f278e85cbf82baf676a09cb"
     },
     "runtime/vendor/spex-core.tgz": {
-      "sha256": "ac69c084484d7e9478aa8a1e497a7e6fc7c84ffc291357e4861b35c91cf238a8",
+      "sha256": "2b65eaff2b2c428cd3704f629cbe09e48036aadc47e9df7d9bacb9b79168e84e",
       "repository": "https://github.com/sublang-ai/spex",
       "commit": "420aba7b5ddadfbbc42ff0c6add7b4083cb29714",
       "patch": "vendor/spex-source.patch",
-      "patchSha256": "5f9640097520b4f0b93c3ea348fe7c2a0034ef808b1b9a86bc077d25938b291d",
-      "tree": "d3f42f5f78eb6dd169ae03587df3a36efbb92ffb",
+      "patchSha256": "54a6be8c22ab0977fa2695250d8592ded278cc78980ca7a2844da402782c4bc3",
+      "tree": "8bf9b2b06a045f81a921a0e98f986df5c50aef4c",
       "lockSha256": "4fcf654ce71648c8460f344ba7dd9a64fed03dc41f278e85cbf82baf676a09cb"
     }
   },
@@ -77,8 +77,8 @@
     "repository": "https://github.com/sublang-ai/spex",
     "commit": "420aba7b5ddadfbbc42ff0c6add7b4083cb29714",
     "patch": "vendor/spex-source.patch",
-    "patchSha256": "5f9640097520b4f0b93c3ea348fe7c2a0034ef808b1b9a86bc077d25938b291d",
-    "tree": "d3f42f5f78eb6dd169ae03587df3a36efbb92ffb",
+    "patchSha256": "54a6be8c22ab0977fa2695250d8592ded278cc78980ca7a2844da402782c4bc3",
+    "tree": "8bf9b2b06a045f81a921a0e98f986df5c50aef4c",
     "lockSha256": "4fcf654ce71648c8460f344ba7dd9a64fed03dc41f278e85cbf82baf676a09cb"
   },
   "runtime_protocol": 36,
