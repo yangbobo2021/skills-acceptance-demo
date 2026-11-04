@@ -12,7 +12,7 @@
     "sublang": {
       "repository": "https://github.com/yangbobo2021/sublang-skill",
       "ref": "v1.0.5",
-      "commit": "7fcc5968fc97d32bb8f71cfbed416a73eda163a7"
+      "commit": "e8cc46c30a0ca79753bc9a94bc2a478649497c6b"
     }
   },
   "registry": "https://spex.sublang.ai",
