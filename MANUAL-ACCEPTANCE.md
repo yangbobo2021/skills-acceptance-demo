@@ -6,7 +6,7 @@
 以下 12 步适用于 macOS、Windows、Codex 和 Claude Code，Prompt 不区分平台或宿主，Skill 应自行适配。
 **每次只执行一步，报告后停止，等操作者继续；四个工作流分别由人触发，不进入 CI 或定时任务。**
 
-被测 Skill 固定 v1.0.0。
+被测版本：SPEC Skill 固定 v1.0.0；SubLang Skill 固定修复首次 Agent 初始化的 v1.0.1。
 本手册随 main 分支发布；本轮以实际克隆的 Git SHA 固定材料版本。
 旧标签 manual-v1.0.1 仍保留旧流程，不要使用它执行本手册。
 
@@ -23,8 +23,9 @@ https://github.com/yangbobo2021/spex-spec-workflow/tree/v1.0.0
 ## 2. 安装 SubLang Skill
 
 ```text
-帮我安装这个 Skill，使用 v1.0.0，并按它的说明完成必要准备：
-https://github.com/yangbobo2021/sublang-skill/tree/v1.0.0
+帮我安装这个 Skill，使用 v1.0.1，并按它的说明完成必要准备：
+https://github.com/yangbobo2021/sublang-skill/tree/v1.0.1
+这是首次 Agent 初始化修复版；后续首次使用应自动采用当前宿主 Agent 和模型，此后保留配置。先不要运行业务工作流。
 ```
 
 预期：完整安装，调用名为 sublang，运行时准备成功，宿主可发现。
@@ -59,7 +60,8 @@ https://github.com/yangbobo2021/skills-acceptance-demo
 ```
 
 预期：实际市场搜索找到 merico-ai/extract-specs，可见 0.3.0；没有新增安装。
-首次必要准备、项目登记和平台适配应由 Skill 处理。
+首次必要准备、项目登记、Agent 初始化和平台适配应由 Skill 处理。
+本步必须验证 Captain、全部 Player、角色模型实际使用当前宿主；模型无法可靠取得时采用约定默认值。后续固定该配置，不由操作者提前补配。
 
 ## 6. 安装规格抽取 Playbook
 
@@ -90,7 +92,7 @@ https://github.com/yangbobo2021/skills-acceptance-demo
 
 ```text
 使用 sublang 的 extract-specs 工作流，为这个 Hello 项目提取中文现状规格。
-只描述已有行为，不改源码和测试。需要我确认时先停下来。
+只描述已有行为，不改源码和测试。使用首次保存的 Agent 和模型配置；如果配置不符，先报告，不切换到其他 Agent。需要我确认时先停下来。
 ```
 
 预期：只提取已有 HELLO-01，不把后续 --upper 需求当作现状；完成原工作流的独立审查和 lint。
@@ -132,8 +134,8 @@ https://github.com/yangbobo2021/skills-acceptance-demo
 - 技术核对和记录见 [执行者检查表](docs/EXECUTOR-CHECKLIST.md)，不拼进用户 Prompt。
 - 首次使用遵循正常个人环境，不提前建立隔离 SPEX_HOME 或配置 Captain/Player 来绕过初始化问题。
 - 期望首次采用当前宿主 Agent/模型，无法取得模型时采用约定默认值，此后固定；实际配置与执行必须核对，不能由外层宿主推断。
-- v1.0.0 尚未实现首次跟随宿主并固定的新规则；本轮必须暴露该缺口，不能通过长 Prompt 手工修正后声称开箱可用。
-- 初次使用选错 Agent/模型或依赖手工预配置时记录缺陷，停止主路线；后续项写 NOT_RUN。需要显式配置的补充验证另获授权并单独记录。
+- SubLang v1.0.1 必须自行完成首次初始化；v1.0.0 的失败记录保留，不用新结果改写旧版本结论。不能预先手工配置后声称开箱可用。
+- 初次使用选错 Agent/模型或依赖手工预配置时记录缺陷，停止主路线；后续项写 NOT_RUN。显式重新配置与自动首次初始化分别记录。升级时保留历史会话，新配置只用于新会话，不把旧会话当成已切换。
 - 正常业务执行才需要的人工问题按实际内容回答，不提前批量批准；不热改被测版本让验收变绿。
 - 只在示例项目内做必要本地提交，不推送、不建 PR、不修改工作流包。
 - 默认保留记录；仅在用户明确要求时清理本轮数据，保留登录、全局配置、开发源码和其他技能。
